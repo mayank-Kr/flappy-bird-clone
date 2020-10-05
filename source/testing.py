@@ -53,7 +53,7 @@ score=0
 high_score=0
 
 #surfaces
-bg_surface=pygame.image.load('assets/background-day.png').convert()
+bg_surface=pygame.image.load('assets/background-night.png').convert()
 
 floor=pygame.image.load('assets/sprites/base.png').convert()
 floor_pos=0
@@ -61,9 +61,9 @@ floor_pos=0
 gameover_surface=pygame.image.load('assets/sprites/gameover.png').convert_alpha()
 initial_surface=pygame.image.load('assets/sprites/message.png').convert_alpha()
 
-bird_downflap=pygame.image.load('assets/sprites/bluebird-downflap.png').convert_alpha()
-bird_upflap=pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()
-bird_midflap=pygame.image.load('assets/sprites/bluebird-midflap.png').convert_alpha()
+bird_downflap=pygame.image.load('assets/sprites/redbird-downflap.png').convert_alpha()
+bird_upflap=pygame.image.load('assets/sprites/redbird-upflap.png').convert_alpha()
+bird_midflap=pygame.image.load('assets/sprites/redbird-midflap.png').convert_alpha()
 bird_list=[bird_upflap,bird_midflap,bird_downflap]
 bird_index=0
 bird_surface=bird_list[bird_index]
