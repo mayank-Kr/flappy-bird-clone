@@ -3,7 +3,7 @@ import pygame,random
 def draw_floor(floor, floor_pos):
     screen.blit(floor, (floor_pos, 400))
     screen.blit(floor, (floor_pos + 288, 400))
-
+#functoins to create pipes
 def create_pipe():
     pipe_pos=random.choice(pipe_height)
     bottom_pipe = pipe_surface.get_rect(midtop = (400,pipe_pos))
@@ -42,7 +42,7 @@ def bird_animation(bird_list,index):
 
 pygame.init()
 screen=pygame.display.set_mode((288, 512))
-clock=pygame.time.Clock()
+clock=pygame.time.Clock() #to determine the frame rate
 
 #Game variables 
 gravity=0.12
@@ -53,7 +53,7 @@ score=0
 high_score=0
 
 #surfaces
-bg_surface=pygame.image.load('assets/background-night.png').convert()
+bg_surface=pygame.image.load('assets/background-day.png').convert()
 
 floor=pygame.image.load('assets/sprites/base.png').convert()
 floor_pos=0
@@ -61,9 +61,9 @@ floor_pos=0
 gameover_surface=pygame.image.load('assets/sprites/gameover.png').convert_alpha()
 initial_surface=pygame.image.load('assets/sprites/message.png').convert_alpha()
 
-bird_downflap=pygame.image.load('assets/sprites/redbird-downflap.png').convert_alpha()
-bird_upflap=pygame.image.load('assets/sprites/redbird-upflap.png').convert_alpha()
-bird_midflap=pygame.image.load('assets/sprites/redbird-midflap.png').convert_alpha()
+bird_downflap=pygame.image.load('assets/sprites/bluebird-downflap.png').convert_alpha()
+bird_upflap=pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()
+bird_midflap=pygame.image.load('assets/sprites/bluebird-midflap.png').convert_alpha()
 bird_list=[bird_upflap,bird_midflap,bird_downflap]
 bird_index=0
 bird_surface=bird_list[bird_index]
@@ -72,13 +72,13 @@ bird_rect=bird_surface.get_rect(center = (50,180))
 BIRDFLAP=pygame.USEREVENT + 1
 pygame.time.set_timer(BIRDFLAP,100)
 
-pipe_surface=pygame.image.load('assets/sprites/pipe-red.png').convert()
+pipe_surface=pygame.image.load('assets/sprites/pipe-green.png').convert()
 pipe_list=[]
 SPAWNPIPE = pygame.USEREVENT
 pygame.time.set_timer(SPAWNPIPE, 1200)
 pipe_height= [160,246,330]
 
-while True:
+while True: #event loop to execute certian events on respective user actions
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -95,7 +95,7 @@ while True:
                 start_flag=1
 
         if event.type  == SPAWNPIPE:
-            pipe_list.extend(create_pipe())
+            pipe_list.extend(create_pipe())  #to spawn pipes
         if event.type == BIRDFLAP:
             bird_index+=1
             if bird_index > 2:
@@ -105,7 +105,7 @@ while True:
     #background image
     screen.blit(bg_surface, (0, 0))
     
-    if game_active:
+    if game_active: #gae active variable to determine weather the game is active or not
         #bird movement
         bird_movement+=gravity
         rotated_bird=rotate_bird(bird_surface)
@@ -127,4 +127,5 @@ while True:
     floor_pos -= 1   
         
     pygame.display.update()
-    clock.tick(120)
+    
+    clock.tick(130)
