@@ -9,12 +9,13 @@ def create_pipe():
     bottom_pipe = pipe_surface.get_rect(midtop = (400,pipe_pos))
     top_pipe = pipe_surface.get_rect(midbottom = (400,pipe_pos-130))
     return bottom_pipe,top_pipe
-
+#function to move the pipes dynamically
 def move_pipes(pipes):
     for pipe in pipes:
         pipe.centerx -= 3
     return pipes
 
+#function to create pipes
 def draw_pipes(pipes):
     for pipe in pipes:
         if pipe.bottom >= 412:
@@ -22,7 +23,8 @@ def draw_pipes(pipes):
         else:
             flip_pipe=pygame.transform.flip(pipe_surface,False,True)
             screen.blit(flip_pipe,pipe)
-    
+ 
+#function to check if the pipes and bird are colliding or not in case if they does then end the event loop
 def check_collision(pipes):
     for pipe in pipes:
         if bird_rect.colliderect(pipe):
@@ -31,10 +33,12 @@ def check_collision(pipes):
         return False
     return True
 
+#function to rotate the bird every time when it falls or rise up
 def rotate_bird(bird):
     angled_bird=pygame.transform.rotozoom(bird,-bird_movement*4, 1)
     return angled_bird
 
+#function to create bird and make it
 def bird_animation(bird_list,index):
     new_bird=bird_list[index]
     new_rect=new_bird.get_rect(center = (50, bird_rect.centery))
@@ -55,12 +59,16 @@ high_score=0
 #surfaces
 bg_surface=pygame.image.load('assets/background-day.png').convert()
 
+#floor
 floor=pygame.image.load('assets/sprites/base.png').convert()
+#floor position zero
 floor_pos=0
 
+#surface when the game is over
 gameover_surface=pygame.image.load('assets/sprites/gameover.png').convert_alpha()
 initial_surface=pygame.image.load('assets/sprites/message.png').convert_alpha()
 
+#all the images loaded into the game
 bird_downflap=pygame.image.load('assets/sprites/bluebird-downflap.png').convert_alpha()
 bird_upflap=pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()
 bird_midflap=pygame.image.load('assets/sprites/bluebird-midflap.png').convert_alpha()
@@ -72,11 +80,12 @@ bird_rect=bird_surface.get_rect(center = (50,180))
 BIRDFLAP=pygame.USEREVENT + 1
 pygame.time.set_timer(BIRDFLAP,100)
 
+#function for spawning pipes
 pipe_surface=pygame.image.load('assets/sprites/pipe-green.png').convert()
 pipe_list=[]
 SPAWNPIPE = pygame.USEREVENT
-pygame.time.set_timer(SPAWNPIPE, 1200)
-pipe_height= [160,246,330]
+pygame.time.set_timer(SPAWNPIPE, 1250)
+pipe_height= [165,240,310]
 
 while True: #event loop to execute certian events on respective user actions
     for event in pygame.event.get():
@@ -105,7 +114,7 @@ while True: #event loop to execute certian events on respective user actions
     #background image
     screen.blit(bg_surface, (0, 0))
     
-    if game_active: #gae active variable to determine weather the game is active or not
+    if game_active: #game active variable to determine weather the game is active or not
         #bird movement
         bird_movement+=gravity
         rotated_bird=rotate_bird(bird_surface)
@@ -125,7 +134,8 @@ while True: #event loop to execute certian events on respective user actions
         floor_pos = 0
     draw_floor(floor, floor_pos)
     floor_pos -= 1   
-        
+     
+    #updating diaplay at each loop   
     pygame.display.update()
-    
-    clock.tick(130)
+    #clock variable to run the game loop kind of refresh rate of game screen 
+    clock.tick(125)
